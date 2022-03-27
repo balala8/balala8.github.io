@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <title>巴啦啦小魔仙 | </title>
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+    <body>
+        <div class="paper">
+            <div class="paper-main">
+                
+                    <div class="post-header">
+    <a class="logo" href="/">巴啦啦小魔仙</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#000" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                
+                <div class="post-main">
+
+    
+        <div class="post-main-title">
+            torch 加载他人的ckpt文件报错
+        </div>
+        <div class="post-meta">
+            2022-03-27
+        </div>
+    
+
+    <div class="post-md">
+        <h1 id="第一个错"><a href="#第一个错" class="headerlink" title="第一个错"></a>第一个错</h1><pre><code class="python">Attempting to deserialize object on a CUDA device but torch.cuda.is_available() is False. If you are running on a CPU-only machine, please use torch.load with map_location=torch.device(&#39;cpu&#39;) to map your storages to the CPU.
+</code></pre>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p> ckpt可能是用gpu跑的，而你用cpu，所以不匹配。需要加上参数 <strong>map_location&#x3D;“cpu“</strong> 即可。</p>
+<pre><code class="python">model.load_state_dict(torch.load(&quot;net.ckpt&quot;,map_location=&quot;cpu&quot;))
+</code></pre>
+<h1 id="第二个错"><a href="#第二个错" class="headerlink" title="第二个错"></a>第二个错</h1><pre><code class="python">Error(s) in loading state_dict for HITNet_KITTI:
+    Missing key(s) in state_dict: &quot;feature_extractor.down_0.0.weight&quot;, &quot;feature_extractor.down_0.0.bias&quot;, &quot;feature_extractor.down_1.0.weight&quot;, &quot;feature_extractor.down_1.0.bias&quot;, &quot;feature_extractor.down_1.2.weight&quot;, &quot;feature_extractor.down_1.2.bias&quot;, &quot;feature_extractor.down_2.0.weight&quot;, &quot;feature_extractor.down_2.0.bias&quot;, &quot;feature_extractor.down_2.2.weight&quot;, &quot;feature_extractor.down_2.2.bias&quot;, &quot;feature_extractor.down_3.0.weight&quot;, &quot;feature_extractor.down_3.0.bias&quot;, &quot;feature_extractor.down_3.2.weight&quot;, &quot;feature_extractor.down_3.2.bias&quot;, &quot;feature_extractor.down_4.0.weight&quot;, &quot;feature_extractor.down_4.0.bias&quot;, &quot;feature_extractor.down_4.2.weight&quot;, &quot;feature_extractor.down_4.2.bias&quot;, &quot;feature_extractor.down_4.4.weight&quot;, &quot;feature_extractor.down_4.4.bias&quot;, &quot;feature_extractor.down_4.6.weight&quot;, &quot;feature_extractor.down_4.6.bias&quot;, &quot;feature_extractor.up_3.up_conv.0.weight&quot;, &quot;feature_extractor.up_3.up_conv.0.bias&quot;, &quot;feature_extractor.up_3.merge_conv.0.weight&quot;, &quot;feature_extractor.up_3.merge_conv.0.bias&quot;, &quot;feature_extractor.up_3.merge_conv.2.weight&quot;, &quot;feature_extractor.up_3.merge_conv.2.bias&quot;, &quot;feature_extractor.up_3.merge_conv.4.weight&quot;, &quot;feature_extractor.up_3.merge_conv.4.bias&quot;, &quot;feature_extractor.up_2.up_conv.0.weight&quot;, &quot;feature_extractor.up_2.up_conv.0.bias&quot;, &quot;feature_extractor.up_2.merge_conv.0.weight&quot;, &quot;feature_extractor.up_2.merge_conv.0.bias&quot;, &quot;feature_extractor.up_2.merge_conv.2.weight&quot;, &quot;feature_extractor.up_2.merge_conv.2.bias&quot;, &quot;feature_extractor.up_2.merge_conv.4.weight&quot;, &quot;feature_extractor.up_2.merge_conv.4.bias&quot;, &quot;feature_extractor.up_1.up_conv.0.weight&quot;, &quot;feature_extractor.up_1.up_conv.0.bias&quot;, &quot;feature_extractor.up_1.merge_conv.0.weight&quot;, &quot;feature_extractor.up_1.merge_conv.0.bias&quot;, &quot;feature_extractor.up_1.merge_conv.2.weight&quot;, &quot;feature_extractor.up_1.merge_conv.2.bias&quot;, &quot;feature_extractor.up_1.merge_conv.4.weight&quot;, &quot;feature_extractor.up_1.merge_conv.4.bias&quot;, &quot;feature_extractor.up_0.up_conv.0.weight&quot;, &quot;feature_extractor.up_0.up_conv.0.bias&quot;, &quot;feature_extractor.up_0.merge_conv.0.weight&quot;, &quot;feature_extractor.up_0.merge_conv.0.bias&quot;, &quot;feature_extractor.up_0.merge_conv.2.weight&quot;, &quot;feature_extractor.up_0.merge_conv.2.bias&quot;, &quot;feature_extractor.up_0.merge_conv.4.weight&quot;, &quot;feature_extractor.up_0.merge_conv.4.bias&quot;, &quot;level.0.init.conv_reduce.weight&quot;, &quot;level.0.init.conv_reduce.bias&quot;, &quot;level.0.init.conv_em.1.weight&quot;, &quot;level.0.init.conv_em.1.bias&quot;, &quot;level.0.init.conv_hyp.0.weight&quot;, &quot;level.0.init.conv_hyp.0.bias&quot;, &quot;level.0.prop.conv_neighbors.0.weight&quot;, &quot;level.0.prop.conv_neighbors.0.bias&quot;, &quot;level.0.prop.conv1.0.weight&quot;, &quot;level.0.prop.conv1.0.bias&quot;, &quot;level.0.prop.res_block.0.conv.0.weight&quot;, &quot;level.0.prop.res_block.0.conv.0.bias&quot;, &quot;level.0.prop.res_block.0.conv.2.weight&quot;, &quot;level.0.prop.res_block.0.conv.2.bias&quot;, &quot;level.0.prop.res_block.1.conv.0.weight&quot;, &quot;level.0.prop.res_block.1.conv.0.bias&quot;, &quot;level.0.prop.res_block.1.conv.2.weight&quot;, &quot;level.0.prop.res_block.1.conv.2.bias&quot;, &quot;level.0.prop.convn.weight&quot;, &quot;level.0.prop.convn.bias&quot;, &quot;level.1.init.conv_reduce.weight&quot;, &quot;level.1.init.conv_reduce.bias&quot;, &quot;level.1.init.conv_em.1.weight&quot;, &quot;level.1.init.conv_em.1.bias&quot;, &quot;level.1.init.conv_hyp.0.weight&quot;, &quot;level.1.init.conv_hyp.0.bias&quot;, &quot;level.1.prop.conv_neighbors.0.weight&quot;, &quot;level.1.prop.conv_neighbors.0.bias&quot;, &quot;level.1.prop.conv1.0.weight&quot;, &quot;level.1.prop.conv1.0.bias&quot;, &quot;level.1.prop.res_block.0.conv.0.weight&quot;, &quot;level.1.prop.res_block.0.conv.0.bias&quot;, &quot;level.1.prop.res_block.0.conv.2.weight&quot;, &quot;level.1.prop.res_block.0.conv.2.bias&quot;, &quot;level.1.prop.res_block.1.conv.0.weight&quot;, &quot;level.1.prop.res_block.1.conv.0.bias&quot;, &quot;level.1.prop.res_block.1.conv.2.weight&quot;, &quot;level.1.prop.res_block.1.conv.2.bias&quot;, &quot;level.1.prop.convn.weight&quot;, &quot;level.1.prop.convn.bias&quot;, &quot;level.2.init.conv_reduce.weight&quot;, &quot;level.2.init.conv_reduce.bias&quot;, &quot;level.2.init.conv_em.1.weight&quot;, &quot;level.2.init.conv_em.1.bias&quot;, &quot;level.2.init.conv_hyp.0.weight&quot;, &quot;level.2.init.conv_hyp.0.bias&quot;, &quot;level.2.prop.conv_neighbors.0.weight&quot;, &quot;level.2.prop.conv_neighbors.0.bias&quot;, &quot;level.2.prop.conv1.0.weight&quot;, &quot;level.2.prop.conv1.0.bias&quot;, &quot;level.2.prop.res_block.0.conv.0.weight&quot;, &quot;level.2.prop.res_block.0.conv.0.bias&quot;, &quot;level.2.prop.res_block.0.conv.2.weight&quot;, &quot;level.2.prop.res_block.0.conv.2.bias&quot;, &quot;level.2.prop.res_block.1.conv.0.weight&quot;, &quot;level.2.prop.res_block.1.conv.0.bias&quot;, &quot;level.2.prop.res_block.1.conv.2.weight&quot;, &quot;level.2.prop.res_block.1.conv.2.bias&quot;, &quot;level.2.prop.convn.weight&quot;, &quot;level.2.prop.convn.bias&quot;, &quot;level.3.init.conv_reduce.weight&quot;, &quot;level.3.init.conv_reduce.bias&quot;, &quot;level.3.init.conv_em.1.weight&quot;, &quot;level.3.init.conv_em.1.bias&quot;, &quot;level.3.init.conv_hyp.0.weight&quot;, &quot;level.3.init.conv_hyp.0.bias&quot;, &quot;level.3.prop.conv_neighbors.0.weight&quot;, &quot;level.3.prop.conv_neighbors.0.bias&quot;, &quot;level.3.prop.conv1.0.weight&quot;, &quot;level.3.prop.conv1.0.bias&quot;, &quot;level.3.prop.res_block.0.conv.0.weight&quot;, &quot;level.3.prop.res_block.0.conv.0.bias&quot;, &quot;level.3.prop.res_block.0.conv.2.weight&quot;, &quot;level.3.prop.res_block.0.conv.2.bias&quot;, &quot;level.3.prop.res_block.1.conv.0.weight&quot;, &quot;level.3.prop.res_block.1.conv.0.bias&quot;, &quot;level.3.prop.res_block.1.conv.2.weight&quot;, &quot;level.3.prop.res_block.1.conv.2.bias&quot;, &quot;level.3.prop.convn.weight&quot;, &quot;level.3.prop.convn.bias&quot;, &quot;level.4.init.conv_reduce.weight&quot;, &quot;level.4.init.conv_reduce.bias&quot;, &quot;level.4.init.conv_em.1.weight&quot;, &quot;level.4.init.conv_em.1.bias&quot;, &quot;level.4.init.conv_hyp.0.weight&quot;, &quot;level.4.init.conv_hyp.0.bias&quot;, &quot;level.4.prop.conv_neighbors.0.weight&quot;, &quot;level.4.prop.conv_neighbors.0.bias&quot;, &quot;level.4.prop.conv1.0.weight&quot;, &quot;level.4.prop.conv1.0.bias&quot;, &quot;level.4.prop.res_block.0.conv.0.weight&quot;, &quot;level.4.prop.res_block.0.conv.0.bias&quot;, &quot;level.4.prop.res_block.0.conv.2.weight&quot;, &quot;level.4.prop.res_block.0.conv.2.bias&quot;, &quot;level.4.prop.res_block.1.conv.0.weight&quot;, &quot;level.4.prop.res_block.1.conv.0.bias&quot;, &quot;level.4.prop.res_block.1.conv.2.weight&quot;, &quot;level.4.prop.res_block.1.conv.2.bias&quot;, &quot;level.4.prop.convn.weight&quot;, &quot;level.4.prop.convn.bias&quot;, &quot;refine.0.conv1x1.0.weight&quot;, &quot;refine.0.conv1x1.0.bias&quot;, &quot;refine.0.conv1.0.weight&quot;, &quot;refine.0.conv1.0.bias&quot;, &quot;refine.0.res_block.0.conv.0.weight&quot;, &quot;refine.0.res_block.0.conv.0.bias&quot;, &quot;refine.0.res_block.0.conv.2.weight&quot;, &quot;refine.0.res_block.0.conv.2.bias&quot;, &quot;refine.0.res_block.1.conv.0.weight&quot;, &quot;refine.0.res_block.1.conv.0.bias&quot;, &quot;refine.0.res_block.1.conv.2.weight&quot;, &quot;refine.0.res_block.1.conv.2.bias&quot;, &quot;refine.0.res_block.2.conv.0.weight&quot;, &quot;refine.0.res_block.2.conv.0.bias&quot;, &quot;refine.0.res_block.2.conv.2.weight&quot;, &quot;refine.0.res_block.2.conv.2.bias&quot;, &quot;refine.0.res_block.3.conv.0.weight&quot;, &quot;refine.0.res_block.3.conv.0.bias&quot;, &quot;refine.0.res_block.3.conv.2.weight&quot;, &quot;refine.0.res_block.3.conv.2.bias&quot;, &quot;refine.0.convn.weight&quot;, &quot;refine.0.convn.bias&quot;, &quot;refine.1.conv1x1.0.weight&quot;, &quot;refine.1.conv1x1.0.bias&quot;, &quot;refine.1.conv1.0.weight&quot;, &quot;refine.1.conv1.0.bias&quot;, &quot;refine.1.res_block.0.conv.0.weight&quot;, &quot;refine.1.res_block.0.conv.0.bias&quot;, &quot;refine.1.res_block.0.conv.2.weight&quot;, &quot;refine.1.res_block.0.conv.2.bias&quot;, &quot;refine.1.res_block.1.conv.0.weight&quot;, &quot;refine.1.res_block.1.conv.0.bias&quot;, &quot;refine.1.res_block.1.conv.2.weight&quot;, &quot;refine.1.res_block.1.conv.2.bias&quot;, &quot;refine.1.res_block.2.conv.0.weight&quot;, &quot;refine.1.res_block.2.conv.0.bias&quot;, &quot;refine.1.res_block.2.conv.2.weight&quot;, &quot;refine.1.res_block.2.conv.2.bias&quot;, &quot;refine.1.res_block.3.conv.0.weight&quot;, &quot;refine.1.res_block.3.conv.0.bias&quot;, &quot;refine.1.res_block.3.conv.2.weight&quot;, &quot;refine.1.res_block.3.conv.2.bias&quot;, &quot;refine.1.convn.weight&quot;, &quot;refine.1.convn.bias&quot;, &quot;refine.2.conv1x1.0.weight&quot;, &quot;refine.2.conv1x1.0.bias&quot;, &quot;refine.2.conv1.0.weight&quot;, &quot;refine.2.conv1.0.bias&quot;, &quot;refine.2.res_block.0.conv.0.weight&quot;, &quot;refine.2.res_block.0.conv.0.bias&quot;, &quot;refine.2.res_block.0.conv.2.weight&quot;, &quot;refine.2.res_block.0.conv.2.bias&quot;, &quot;refine.2.res_block.1.conv.0.weight&quot;, &quot;refine.2.res_block.1.conv.0.bias&quot;, &quot;refine.2.res_block.1.conv.2.weight&quot;, &quot;refine.2.res_block.1.conv.2.bias&quot;, &quot;refine.2.convn.weight&quot;, &quot;refine.2.convn.bias&quot;. 
+    Unexpected key(s) in state_dict: &quot;epoch&quot;, &quot;global_step&quot;, &quot;pytorch-lightning_version&quot;, &quot;state_dict&quot;, &quot;callbacks&quot;, &quot;optimizer_states&quot;, &quot;lr_schedulers&quot;. 
+  File &quot;/home//文档/TinyHiTNet/models/hit_net_kitti.py&quot;, line 431, in &lt;module&gt;
+    model.load_state_dict(torch.load(&quot;/home//文档/TinyHiTNet/ckpt/stereo_net.ckpt&quot;,map_location=&quot;cpu&quot;))
+</code></pre>
+<h2 id="原因-1"><a href="#原因-1" class="headerlink" title="原因"></a>原因</h2><p>这是由于这个ckpt文件中保存有epoch等信息。    加上参数 <strong>strict&#x3D;False</strong> 就好了</p>
+<pre><code class="Python">model.load_state_dict(torch.load(&quot;net.ckpt&quot;,map_location=&quot;cpu&quot;),strict=False)
+</code></pre>
+
+    </div>
+
+</div>
+                <div class="footer">
+    <span>Copyright © 2022 巴啦啦小魔仙</span>
+    <span>Theme Designed By <a target="_blank" href="https://zheli.design/one-paper">這Li</a></span>
+</div>
+
+
+<link rel="stylesheet" href="/css/a11y-dark.min.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.highlightAll();
+</script>
+
+            </div>
+        </div>
+    </body>
+</html>
