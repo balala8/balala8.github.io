@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <title>巴啦啦小魔仙 | </title>
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+    <body>
+        <div class="paper">
+            <div class="paper-main">
+                
+                    <div class="post-header">
+    <a class="logo" href="/">巴啦啦小魔仙</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#000" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                
+                <div class="post-main">
+
+    
+        <div class="post-main-title">
+            python 安装pygit2失败
+        </div>
+        <div class="post-meta">
+            2022-03-31
+        </div>
+    
+
+    <div class="post-md">
+        <h1 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h1><p>这是最后一部分输出</p>
+<pre><code class="shell">  In file included from src/blob.c:30:0:
+  src/blob.h:33:10: fatal error: git2.h: 没有那个文件或目录
+   #include &lt;git2.h&gt;
+            ^~~~~~~~
+  compilation terminated.
+  error: command &#39;gcc&#39; failed with exit status 1
+  ----------------------------------------
+  ERROR: Failed building wheel for pygit2
+Failed to build pygit2
+ERROR: Could not build wheels for pygit2 which use PEP 517 and cannot be installed directly
+</code></pre>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>是因为Python的版本太低了。现在是3.6，我更新到3.9后就好了。更新命令</p>
+<pre><code class="python"> conda update python
+</code></pre>
+
+    </div>
+
+</div>
+                <div class="footer">
+    <span>Copyright © 2022 巴啦啦小魔仙</span>
+    <span>Theme Designed By <a target="_blank" href="https://zheli.design/one-paper">這Li</a></span>
+</div>
+
+
+<link rel="stylesheet" href="/css/a11y-dark.min.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.highlightAll();
+</script>
+
+            </div>
+        </div>
+    </body>
+</html>
