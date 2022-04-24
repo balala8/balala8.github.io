@@ -35,18 +35,28 @@
 
     
         <div class="post-main-title">
-            当模型多输入时，torchsummary估计参数量
+            mac brew安装c++ opencv
         </div>
         <div class="post-meta">
-            2022-03-27
+            2022-04-06
         </div>
     
 
     <div class="post-md">
-        <h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>直接将参数传入即可。如下代码，有三个以上的输入也是以此类推</p>
-<pre><code class="python">summary(model,first_input,second_input,device=&#39;cpu&#39;)
+        <p>忍不住吐槽，参考了各种国内的博客（csdn），最后都解决不了。直接上 Google。几分钟找到问题成功解决。</p>
+<h1 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h1><p>直接用 brew 安装 opencv</p>
+<pre><code class="shell">brew install opencv
 </code></pre>
-<p>还有问题可以去这里查看<a target="_blank" rel="noopener" href="https://pypi.org/project/torch-summary/">torch-summary</a></p>
+<p> 默认路径在  &#x3D;&#x3D;&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;&#x3D;&#x3D;，实际文件也在这里。<br> 同时系统会在 &#x3D;&#x3D;&#x2F;usr&#x2F;local&#x2F;include&#x3D;&#x3D; 下面做软连接。在这里下面也能看到 opencv4 的目录。</p>
+<p>用这个命令是看不到的。</p>
+<pre><code class="shell">pkg-config --cflags --libs opencv 
+</code></pre>
+<p>因为不是 opencv 了，而是 opencv4。<br>真正的命令是</p>
+<pre><code class="shell">pkg-config --cflags --libs opencv4
+</code></pre>
+<p>使用  &#x3D;&#x3D;g++&#x3D;&#x3D; 编译</p>
+<pre><code class="shell">g++ --std=c++11  -O3 -I./ main.cpp pkg-config --cflags --libs opencv4 -o main
+</code></pre>
 
     </div>
 
